@@ -22,18 +22,18 @@ public class AnnealerFactory{
     return new SimulatedAnnealer(
           dim,
           MAXITER,
-          MAXSTEP,                   // # of steps before updating step length
+          MAXSTEP,                    // # of steps before updating step length
           Math.max(MAXTEMP, 5* dim),  // # of steps before updating temp
-          LASTSTEP, // # of steps in considering convergence
-          EPSILON,  // Convergence tol
-          SEED,      // Seed for PRNG
-          x0,       // Initial guess
-          lb,       // lower bound
-          ub,       // upper bound
-          V,        // Step vector
-          INITTEMP, // initial temp
-          RATE,     // cooling rate
-          obj       // The objective function
+          LASTSTEP,                   // # of steps in considering convergence
+          EPSILON,                    // Convergence tol
+          SEED,                       // Seed for PRNG
+          x0,                         // Initial guess
+          lb,                         // lower bound
+          ub,                         // upper bound
+          V,                          // Step vector
+          INITTEMP,                   // initial temp
+          RATE,                       // cooling rate
+          obj                         // The objective function
           );
 
   }
