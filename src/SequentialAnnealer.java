@@ -1,36 +1,12 @@
 import java.util.Random;
 
-public class SequentialAnnealer{
-  private int numPoints;
-  private double[] lb;
-  private double[] ub;
-  private int dim; 
-  private Function f;
-
-  public static int SEED = 123;
-
-  private double[][] xOptHist;
-  private double[]   fOptHist;
-
-  private double[] xOpt;
-  private double fOpt;
-
-  private Random prng;
-
+public class SequentialAnnealer extends AbstractAnnealer {
   public SequentialAnnealer( final int numPoints,
                              final int dim,
                              final double[] lb,
                              final double[] ub,
                              final Function f ){
-    this.numPoints = numPoints;
-    this.dim = dim;
-    this.lb = lb;
-    this.ub = ub;
-    this.f = f;
-    this.prng = new Random( SEED );
-
-    this.xOptHist = new double[ numPoints ][ dim ];
-    this.fOptHist = new double[ numPoints ];
+    super( numPoints, dim, lb, ub, f );
   }
 
   public void run(){
@@ -54,16 +30,5 @@ public class SequentialAnnealer{
       }
     }
   } 
-  private double boundedRandom( double min, double max ){
-    return min + ( max - min ) * prng.nextDouble();
-  }
-
-  public double[] getSolution(){
-    return xOpt;
-  }
-  public double getValue(){
-    return fOpt;
-  }
-
                  
 }

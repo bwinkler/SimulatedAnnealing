@@ -14,12 +14,14 @@ public final class Example1Seq {
     long tStart = System.currentTimeMillis();
       Function f = new Function(){
         public double eval( double[] x ){
-          return - ( Math.sin( x[0] * x[0] + x[1] * x[1]) / 0.1*(x[0] * x[0] +x[1] * x[1])) - (55*x[1] + 60 * x[0] * x[0]);
+          return - (Math.sin( x[0] * x[0] + x[1] * x[1]) 
+              / 0.1*(x[0] * x[0] +x[1] * x[1])) 
+                - (55*x[1] + 60 * x[0] * x[0]);
 
         }
       };
 
-      SequentialAnnealer sa 
+      AbstractAnnealer sa 
         = new SequentialAnnealer( NUM_POINTS, DIM, LB, UB, f );
       sa.run();
 
@@ -29,10 +31,6 @@ public final class Example1Seq {
     System.out.printf("(%f,%f), %f\n", xOpt[0], xOpt[1],  fOpt );
     System.out.printf("%d msec\n", tEnd - tStart ); 
 
-  }
-
-  private static double boundedRandom( Random prng, double min, double max ){
-    return min + ( max - min ) * prng.nextDouble();
   }
 
   /** Private constructor to prevent auto-generated. */
