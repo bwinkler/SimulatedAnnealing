@@ -4,7 +4,7 @@ public class AnnealerFactory{
   public static int MAXSTEP = 20;
   public static int MAXTEMP = 100;
   public static int LASTSTEP = 4;
-  public static double INITTEMP = 1E9;
+  public static double INITTEMP = 1E6;
   public static double EPSILON = 1E-6;
   public static double RATE = 0.995;
   public static double STEPSIZE = 0.001;

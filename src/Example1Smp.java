@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public final class Example1Seq {
+public final class Example1Smp {
 
   private static final int DIM = 2;
   private static final double[] LB = {-3, -3};
@@ -9,6 +9,7 @@ public final class Example1Seq {
   private static final int NUM_POINTS = 100;
 
   public static void main( final String [] args ){
+
 
     long tStart = System.currentTimeMillis();
       Function f = new Function(){
@@ -21,7 +22,7 @@ public final class Example1Seq {
       };
 
       AbstractAnnealer sa 
-        = new SequentialAnnealer( NUM_POINTS, DIM, LB, UB, f );
+        = new ParallelAnnealer( NUM_POINTS, DIM, LB, UB, f );
       sa.run();
 
       double[] xOpt = sa.getSolution();
@@ -33,7 +34,7 @@ public final class Example1Seq {
   }
 
   /** Private constructor to prevent auto-generated. */
-  private Example1Seq() { }
+  private Example1Smp() { }
 }
 
 

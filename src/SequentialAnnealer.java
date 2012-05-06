@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class SequentialAnnealer extends AbstractAnnealer {
   public SequentialAnnealer( final int numPoints,
                              final int dim,

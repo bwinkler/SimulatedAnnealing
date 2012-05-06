@@ -1,4 +1,4 @@
-import java.util.Random;
+import edu.rit.util.Random;
 
 public abstract class AbstractAnnealer{
   protected int numPoints;
@@ -27,7 +27,7 @@ public abstract class AbstractAnnealer{
     this.lb = lb;
     this.ub = ub;
     this.f = f;
-    this.prng = new Random( SEED );
+    this.prng = Random.getInstance( SEED );
 
     this.xOptHist = new double[ numPoints ][ dim ];
     this.fOptHist = new double[ numPoints ];
@@ -36,7 +36,7 @@ public abstract class AbstractAnnealer{
   abstract public void run();
 
   protected double boundedRandom( double min, double max ){
-    return min + ( max - min ) * prng.nextDouble();
+    return min + ( max - min ) * prng.nextDouble( );
   }
 
   public double[] getSolution(){
