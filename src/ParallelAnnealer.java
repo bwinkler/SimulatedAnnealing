@@ -2,13 +2,13 @@ import edu.rit.pj.Comm;
 import edu.rit.util.Random;
 
 import edu.rit.pj.IntegerForLoop;
+import edu.rit.pj.ParallelSection;
 import edu.rit.pj.ParallelRegion;
 import edu.rit.pj.ParallelTeam;
-import edu.rit.pj.reduction.SharedInteger;
+import edu.rit.pj.reduction.SharedDouble;
+import edu.rit.pj.reduction.SharedDoubleArray;
 
 public class ParallelAnnealer extends AbstractAnnealer{
-
-  private int numThreads = 4;
 
   public ParallelAnnealer(  
       final int numPoints,
@@ -18,7 +18,6 @@ public class ParallelAnnealer extends AbstractAnnealer{
       final Function f,
       final int numThreads ){
     super( numPoints, dim, lb, ub, f );
-    this.numThreads = numThreads;
   }
   public ParallelAnnealer(  
       final int numPoints,
@@ -32,9 +31,11 @@ public class ParallelAnnealer extends AbstractAnnealer{
   public void run(){
 
     try{
-      new ParallelTeam( numThreads ).execute( new ParallelRegion(){
+      new ParallelTeam( ).execute( new ParallelRegion(){
         public void run() throws Exception{
           execute(0, numPoints - 1, new IntegerForLoop(){
+            double myfOpt = fOpt;
+            double[] myxOpt = new double[ xOpt.length ];
             public void run( int first, int last ){
 
               for( int i = first; i <= last; i++ ){
@@ -49,7 +50,22 @@ public class ParallelAnnealer extends AbstractAnnealer{
                 sa.run();
                 xOptHist[i] = sa.getSolution();
                 fOptHist[i] = sa.getValue();
+                if( fOptHist[i] < myfOpt ){
+                  myfOpt = fOptHist[i];
+                  myxOpt = xOptHist[i];
+                }
               }
+            }
+            public void finish() throws Exception{ 
+              critical( new ParallelSection(){
+                public void run(){
+                  if( myfOpt < fOpt ){
+                    fOpt = myfOpt;
+                    xOpt = myxOpt;
+                  }
+                }
+              } );
+
             }
           } );
         }
@@ -59,19 +75,6 @@ public class ParallelAnnealer extends AbstractAnnealer{
 
     }
 
-    fOpt = fOptHist[0];
-    xOpt = xOptHist[0];
-    for( int i = 0; i < numPoints; i++ ){
-      if( fOptHist[i] < fOpt ){
-        fOpt = fOptHist[i];
-        xOpt = xOptHist[i];
-      }
-    }
   } 
-  protected double boundedRandom( double min, double max ){
-    return min + ( max - min ) * prng.nextDouble( numThreads );
-  }
-
-
 
 }
