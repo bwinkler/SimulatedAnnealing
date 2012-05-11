@@ -8,7 +8,7 @@ public class AnnealerFactory{
   public static double EPSILON = 1E-6;
   public static double RATE = 0.995;
   public static double STEPSIZE = 0.001;
-  public static int SEED = 123;
+  public static long SEED = System.nanoTime();
 
   public static SimulatedAnnealer getAnnealer( final int dim, 
                                                 final double[] lb,

@@ -7,17 +7,17 @@ public abstract class AbstractAnnealer{
   protected int dim; 
   protected Function f;
 
-  public static int SEED = 123;
+  public static long SEED = System.nanoTime();
 
   protected double[][] xOptHist;
   protected double[]   fOptHist;
 
   protected double[] xOpt;
-  protected double fOpt;
+  protected double fOpt = Double.MAX_VALUE;
 
   protected Random prng;
 
-  public AbstractAnnealer( final int numPoints,
+  public AbstractAnnealer(   final int numPoints,
                              final int dim,
                              final double[] lb,
                              final double[] ub,
@@ -31,6 +31,7 @@ public abstract class AbstractAnnealer{
 
     this.xOptHist = new double[ numPoints ][ dim ];
     this.fOptHist = new double[ numPoints ];
+    this.xOpt = new double[ dim ];
   }
 
   abstract public void run();
