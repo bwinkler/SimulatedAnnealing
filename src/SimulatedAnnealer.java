@@ -59,6 +59,10 @@ public final class SimulatedAnnealer {
   /** The objective function we're trying to minimize. */
   private ObjectiveFunction obj;
 
+  private double minStepLength;
+  
+  private double maxStepLength;
+
   public SimulatedAnnealer( final int dim,
                             final int maxIter,
                             final int maxStep,
@@ -70,6 +74,8 @@ public final class SimulatedAnnealer {
                             final double[] lb,
                             final double[] ub,
                             final double[] v, 
+                            final double minStepLength,
+                            final double maxStepLength,
                             final double T0,
                             final double coolingRate,
                             final ObjectiveFunction obj ){
@@ -84,6 +90,8 @@ public final class SimulatedAnnealer {
     this.lb          = lb;
     this.ub          = ub;
     this.v           = v;
+    this.minStepLength = minStepLength;
+    this.maxStepLength = maxStepLength;
     this.T0          = T0;
     this.coolingRate = coolingRate;
     this.obj         = obj;
@@ -115,9 +123,22 @@ public final class SimulatedAnnealer {
             double fp = obj.eval();
             decide( f, fp, h);
           }
-          // This is where we need to update the step vector.
-          obj.reset();
         }
+
+         // This is where we update the step vector.
+          for( int u = 0; u < v.length; u++ ){
+            double n = (double) obj.getAcceptCount( u );
+            if( n > 0.6 * maxStep ){
+              v[ u ] = Math.min( v[ u ] + (v[u] * 2 * n / (0.4 * maxStep)) - (1.5 * 2 * v[ u ]), 
+                                maxStepLength );
+            }
+            else if( n < 0.4 * maxStep ){
+              v[ u ] = Math.max( v[u] / ( 1 + 2 - (n / (0.4 * maxStep) )), 
+                                 minStepLength );
+            }
+          }
+          obj.reset();
+
 
         reduceTemp();
       }

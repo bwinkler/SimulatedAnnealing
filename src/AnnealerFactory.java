@@ -10,6 +10,10 @@ public class AnnealerFactory{
   public static double STEPSIZE = 0.001;
   public static long SEED = System.nanoTime();
 
+  public static double MINSTEPLENGTH = 1E-4;
+
+  public static double MAXSTEPLENGTH = 0.1;
+
   public static SimulatedAnnealer getAnnealer( final int dim, 
                                                 final double[] lb,
                                                 final double[] ub,
@@ -31,6 +35,8 @@ public class AnnealerFactory{
           lb,                         // lower bound
           ub,                         // upper bound
           V,                          // Step vector
+          MINSTEPLENGTH,              // The minimum adaptive step length
+          MAXSTEPLENGTH,              // The maximum adaptive step length
           INITTEMP,                   // initial temp
           RATE,                       // cooling rate
           obj                         // The objective function
