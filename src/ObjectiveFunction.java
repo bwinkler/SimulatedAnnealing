@@ -4,7 +4,7 @@ public class ObjectiveFunction {
   protected double[] xa;
   protected double[] lower;
   protected double[] upper;
-  private Function f;
+  protected Function f;
 
   private int[] acceptCount;
 
