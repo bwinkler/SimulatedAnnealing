@@ -9,6 +9,8 @@ public final class Example1Seq {
   private static final int NUM_POINTS = 100;
 
   public static void main( final String [] args ){
+    AnnealerFactory.RATE = 0.9;
+
 
     long tStart = System.currentTimeMillis();
       Function f = new Function(){

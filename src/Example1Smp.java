@@ -10,7 +10,7 @@ public final class Example1Smp {
 
   public static void main( final String [] args ){
 
-
+    AnnealerFactory.RATE = 0.9;
     long tStart = System.currentTimeMillis();
       Function f = new Function(){
         public double eval( double[] x ){
