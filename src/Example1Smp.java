@@ -6,11 +6,12 @@ public final class Example1Smp {
   private static final double[] LB = {-3, -3};
   private static final double[] UB = {3, 3};
 
-  private static final int NUM_POINTS = 100;
+  private static final int NUM_POINTS = 1000;
 
   public static void main( final String [] args ){
 
-    AnnealerFactory.RATE = 0.9;
+    AnnealerFactory.RATE = 0.85;
+
     long tStart = System.currentTimeMillis();
       Function f = new Function(){
         public double eval( double[] x ){
