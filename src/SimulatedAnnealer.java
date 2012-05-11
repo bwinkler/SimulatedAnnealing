@@ -65,7 +65,7 @@ public final class SimulatedAnnealer {
                             final int maxTemp,
                             final int lastSteps,
                             final double eps,
-                            final int seed,
+                            final long seed,
                             final double[] x0,
                             final double[] lb,
                             final double[] ub,
